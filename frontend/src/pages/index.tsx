@@ -1,5 +1,4 @@
-// pages/countries/index.tsx
-import Link from "next/link"; // Importer le composant Link pour la navigation
+import Link from "next/link";
 import { useCountriesQuery, useAddCountryMutation } from "@/graphql/generated/schema";
 import { useState } from "react";
 
@@ -31,11 +30,10 @@ export default function CountriesPage() {
 
   if (loading) return <p>Loading countries...</p>;
   if (error) return <p>Error: {error.message}</p>;
-
   return (
-    <main className="p-4">
+    <main className="p-4 flex flex-col justify-center items-center">
 
-      <form onSubmit={handleSubmit} className="bg-gray-100 p-4 rounded-md shadow-md mb-6">
+      <form onSubmit={handleSubmit} className=" border border-slate-200 bg-gray-50 max-w-6xl items-center p-4 rounded-md shadow-md mb-8 ">
         <div className="flex flex-col gap-4 md:flex-row md:items-center">
         <input
           type="text"
@@ -60,24 +58,24 @@ export default function CountriesPage() {
         />
         <button
           type="submit"
-          className="bg-red-500 text-white py-2 px-4 rounded shadow-md"
+          className="bg-pink-600 text-white py-2 px-4 rounded shadow-md"
           disabled={adding}
         >
-          {adding ? "Adding..." : "Add Country"}
+          {adding ? "Adding..." : "Add"}
         </button>
         </div>
       </form>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 
+      lg:grid-cols-6 gap-4 max-w-2xl ">
         {data?.countries?.map((c) => (
           <Link
             key={c.code}
             href={`/countries/${c.code}`}
-            className="border p-4 rounded-md shadow-md flex flex-col items-center"
+            className="border  border-slate-200 text-gray-600 px-3 py-1 rounded-md shadow-md flex flex-col items-center"
           >
-            <span className=" emoji text-3xl mb-2">{c.emoji}</span>
-            <h3 className="font-bold mb-1">{c.name}</h3>
-            <p className="text-gray-500">({c.code})</p>
+            <h3 className="font-medium ">{c.name}</h3>
+            <span className=" font-emoji text-3xl mb-2">{c.emoji}</span>
           </Link>
         ))}
       </div>
